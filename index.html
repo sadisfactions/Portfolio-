@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>sadisfactions — веб-разработчик</title>
+<meta name="description" content="Портфолио веб-разработчика: сайты на HTML, CSS и JavaScript. Проект Atelier Form: каталог, калькулятор, заявки на почту и в Telegram.">
+<meta name="theme-color" content="#15121b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2315121b'/%3E%3Ctext x='32' y='45' font-size='40' text-anchor='middle' font-family='Georgia' fill='%23ffb21e'%3Es%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Unbounded:wght@200..900&display=swap&subset=cyrillic">
+<style>
+:root{--ink:#15121b;--panel:#1d1925;--paper:#f3eef8;--mist:#a59fb3;--acc:#ffb21e;--uv:#6b43ff;--line:rgba(243,238,248,.12);
+--disp:"Unbounded","Arial Black",system-ui,sans-serif;--sans:Manrope,system-ui,-apple-system,sans-serif}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px;background:var(--ink)}
+body{background:var(--ink);color:var(--paper);font:400 17px/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body:after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--disp);font-weight:400;line-height:1.08;letter-spacing:-.02em}
+.wrap{max-width:1240px;margin:auto;padding:0 24px}
+section{padding:112px 0}
+#bar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--acc);transform-origin:0 50%;transform:scaleX(0);z-index:100}
+#glow{position:fixed;left:0;top:0;width:560px;height:560px;margin:-280px 0 0 -280px;border-radius:50%;pointer-events:none;z-index:1;opacity:0;background:radial-gradient(circle,rgba(255,178,30,.13),transparent 62%);transition:opacity .4s}
+/* меню */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:calc(12px + env(safe-area-inset-top,0px)) 0 12px;background:rgba(21,18,27,.66);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:28px}
+.brand{font:500 17px var(--disp);text-decoration:none;margin-right:auto}
+.brand i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--acc);margin-right:10px}
+nav a.l{font-size:15px;color:var(--mist);text-decoration:none;transition:color .25s}
+nav a.l:hover{color:var(--paper)}
+.btn{display:inline-block;padding:15px 28px;border-radius:99px;font:500 15px var(--sans);text-decoration:none;border:1px solid var(--line);color:var(--paper);background:transparent;transition:transform .3s,background .3s,color .3s,border-color .3s;cursor:pointer}
+.btn:hover{transform:translateY(-2px);border-color:var(--paper)}
+.btn.p{background:var(--acc);color:var(--ink);border-color:var(--acc);font-weight:700}
+.btn.p:hover{background:var(--paper);border-color:var(--paper)}
+.btn.s{padding:10px 20px}
+.btn.off{opacity:.5;cursor:not-allowed;transform:none!important}
+/* первый экран */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;padding:130px 0 0}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none;animation:drift 22s ease-in-out infinite alternate}
+.b1{width:46vmax;height:46vmax;left:-14vmax;top:-12vmax;background:var(--uv)}
+.b2{width:32vmax;height:32vmax;right:-10vmax;bottom:6vmax;background:#c98200;opacity:.32;animation-duration:28s;animation-direction:alternate-reverse}
+@keyframes drift{to{transform:translate(9vmax,6vmax) scale(1.18)}}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-bottom:64px}
+.status{display:inline-flex;align-items:center;gap:10px;font-size:14px;color:var(--mist);border:1px solid var(--line);border-radius:99px;padding:8px 16px;margin-bottom:34px;background:rgba(29,25,37,.6)}
+.status:before{content:"";width:8px;height:8px;border-radius:50%;background:#5ee0a0;box-shadow:0 0 0 0 rgba(94,224,160,.6);animation:pulse 2.4s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(94,224,160,0)}100%{box-shadow:0 0 0 0 rgba(94,224,160,0)}}
+h1{font-size:clamp(25px,6.6vw,92px);max-width:1200px;margin-bottom:34px}
+.ln{display:block;overflow:hidden;padding:.04em 0 .12em}
+.ln>span{display:block;transform:translateY(112%);animation:up 1s cubic-bezier(.2,.75,.1,1) forwards;animation-delay:calc(var(--i)*.13s + .15s)}
+@keyframes up{to{transform:none}}
+.w{display:inline-block;white-space:nowrap}
+.ch{display:inline-block;font-weight:360;transition:font-weight .3s ease-out}
+.lead{max-width:540px;color:var(--mist);margin-bottom:38px;font-size:18px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+/* бегущая строка */
+.marq{position:relative;z-index:2;border-top:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:18px 0;background:rgba(21,18,27,.5)}
+.marq div{display:inline-block;animation:mq 38s linear infinite}
+.marq:hover div{animation-play-state:paused}
+.marq span{display:inline-block;font:500 15px var(--disp);color:var(--mist);margin-right:44px}
+.marq span:after{content:"";display:inline-block;width:7px;height:7px;background:var(--acc);transform:rotate(45deg);margin-left:44px;vertical-align:middle}
+@keyframes mq{to{transform:translateX(-50%)}}
+/* проекты */
+h2{font-size:clamp(30px,5vw,60px);margin-bottom:18px}
+.sub{color:var(--mist);max-width:560px;margin-bottom:56px}
+.proj{display:grid;grid-template-columns:5fr 7fr;gap:48px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:28px;padding:44px;position:relative;overflow:hidden}
+.spot:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(520px circle at var(--mx,50%) var(--my,50%),rgba(255,178,30,.10),transparent 60%)}
+.spot:hover:before{opacity:1}
+.tag{display:inline-block;font-size:14px;color:var(--acc);border:1px solid rgba(255,178,30,.4);border-radius:99px;padding:5px 14px;margin-bottom:22px}
+.proj h3{font-size:clamp(30px,4vw,48px);margin-bottom:18px}
+.proj p{color:var(--mist);margin-bottom:22px}
+.proj ul{list-style:none;padding:0;margin:0 0 30px}
+.proj li{padding:10px 0;border-top:1px solid var(--line);font-size:15px}
+.proj li:last-child{border-bottom:1px solid var(--line)}
+.proj li b{font-weight:500;color:var(--paper)}
+.proj li span{color:var(--mist)}
+.stage{perspective:1400px;min-width:0}
+.view{position:relative;aspect-ratio:16/10;overflow:hidden;border-radius:16px;background:#e7e4df;box-shadow:0 40px 80px -20px rgba(0,0,0,.65),0 0 0 1px var(--line);cursor:zoom-in;transition:transform .25s ease-out;will-change:transform}
+.view img{display:block;width:100%;height:auto;transition:transform 4.5s cubic-bezier(.45,.05,.25,1),opacity .35s}
+.view:hover img{transform:translateY(var(--dy,0))}
+.view.sw img{opacity:0}
+.hint{position:absolute;right:14px;bottom:14px;font-size:13px;background:rgba(21,18,27,.82);color:var(--paper);padding:6px 12px;border-radius:99px;pointer-events:none}
+.cap{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--mist);margin:16px 2px 12px}
+.thumbs{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:thin}
+.thumbs button{flex:0 0 auto;width:112px;aspect-ratio:16/10;border:1px solid var(--line);border-radius:10px;padding:0;overflow:hidden;background:#e7e4df;cursor:pointer;opacity:.55;transition:opacity .25s,border-color .25s,transform .25s}
+.thumbs button:hover{opacity:.9}
+.thumbs button[aria-pressed=true]{opacity:1;border-color:var(--acc);transform:translateY(-3px)}
+.thumbs img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.next{margin-top:20px;border:1px dashed var(--line);border-radius:28px;padding:34px 44px;color:var(--mist);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+.next b{font:400 22px var(--disp);color:var(--paper)}
+/* навыки */
+.skills{border-top:1px solid var(--line)}
+.sk{display:grid;grid-template-columns:5fr 7fr;gap:32px;padding:34px 8px;border-bottom:1px solid var(--line);position:relative;transition:padding .35s}
+.sk:hover{padding-left:28px}
+.sk h3{font-size:clamp(22px,3vw,34px)}
+.sk p{color:var(--mist);align-self:center;max-width:560px}
+/* контакты */
+.cta h2{font-size:clamp(32px,6.4vw,84px);max-width:980px;margin-bottom:34px}
+.cta p{color:var(--mist);max-width:520px;margin-bottom:36px}
+footer{border-top:1px solid var(--line);padding:30px 0 calc(34px + env(safe-area-inset-bottom,0px));color:var(--mist);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+/* окно с полным скриншотом */
+dialog{border:0;padding:0;background:none;max-width:min(1500px,95vw);max-height:92vh;overflow:auto;border-radius:14px;margin:auto}
+dialog::backdrop{background:rgba(10,8,14,.9);backdrop-filter:blur(6px)}
+dialog img{display:block;width:100%;height:auto;cursor:zoom-out}
+@media(max-width:900px){.proj{grid-template-columns:1fr;padding:26px;gap:30px}.sk{grid-template-columns:1fr;gap:10px}.next{padding:26px}}
+@media(max-width:640px){section{padding:76px 0}nav a.l{display:none}.hero{padding-top:110px}.hint{display:none}}
+@media(hover:none){.view{cursor:pointer}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.ln>span{transform:none}}
+</style>
+</head>
+<body>
+<div id="bar"></div><div id="glow"></div>
+<nav><div class="wrap">
+<a class="brand" href="#top"><i></i>sadisfactions</a>
+<a class="l" href="#projects">Проекты</a><a class="l" href="#skills">Что умею</a><a class="l" href="#contacts">Контакты</a>
+<a class="btn p s" href="#contacts">Написать мне</a>
+</div></nav>
+
+<header class="hero" id="top">
+<div class="blob b1"></div><div class="blob b2"></div>
+<div class="wrap">
+<div class="status">Открыт к предложениям</div>
+<h1 id="h1" aria-label="Сайты, которые выглядят дорого и работают">
+<span class="ln" style="--i:0"><span>Сайты, которые</span></span>
+<span class="ln" style="--i:1"><span>выглядят дорого</span></span>
+<span class="ln" style="--i:2"><span>и работают</span></span>
+</h1>
+<p class="lead">Я веб-разработчик. Пишу сайты на HTML, CSS и JavaScript: от вёрстки и анимаций до заявок на почту и в Telegram.</p>
+<div class="row"><a class="btn p" href="#projects">Смотреть проект</a><a class="btn" href="#contacts">Связаться</a></div>
+</div>
+<div class="marq" aria-hidden="true"><div id="mq"></div></div>
+</header>
+
+<main>
+<section id="projects"><div class="wrap">
+<h2>Проекты</h2>
+<p class="sub">Пока один законченный проект. Наведите курсор на экран: страница прокрутится сама. Нажмите, чтобы открыть скриншот целиком.</p>
+<article class="proj spot">
+<div>
+<span class="tag">Демонстрационный проект</span>
+<h3>Atelier Form</h3>
+<p>Сайт мебельной студии: каталог кухонь и шкафов, калькулятор стоимости, галерея и форма заявки. Название и цены выдуманные, проект сделан для портфолио.</p>
+<ul>
+<li><b>Калькулятор.</b> <span>Считает цену по типу мебели, длине и материалу.</span></li>
+<li><b>Заявки на почту.</b> <span>Через FormSubmit, вместе с расчётом.</span></li>
+<li><b>Уведомления в Telegram.</b> <span>Через Cloudflare Worker, без токенов на сайте.</span></li>
+<li><b>Адаптивная вёрстка.</b> <span>Телефон, планшет, компьютер.</span></li>
+</ul>
+<div class="row"><a class="btn p" href="https://sadisfactions.github.io/" target="_blank" rel="noopener">Открыть сайт</a><a class="btn" href="https://github.com/sadisfactions/sadisfactions.github.io" target="_blank" rel="noopener">Исходный код</a></div>
+</div>
+<div class="stage">
+<div class="view" id="view" title="Открыть целиком"><img id="vimg" src="https://sadisfactions.github.io/main.png" alt="Atelier Form: главная страница" width="2114" height="1222"><span class="hint">Наведите, чтобы листать</span></div>
+<div class="cap"><span id="cap">Главная</span><span id="cnt">1 из 5</span></div>
+<div class="thumbs" id="thumbs"></div>
+</div>
+</article>
+<div class="next"><b>Следующий проект</b><span>Здесь появится новая работа.</span></div>
+</div></section>
+
+<section id="skills"><div class="wrap">
+<h2>Что умею</h2>
+<p class="sub">Всё это уже работает в проекте Atelier Form.</p>
+<div class="skills">
+<div class="sk spot"><h3>HTML и CSS</h3><p>Аккуратная вёрстка, сетка и адаптив под телефон, планшет и компьютер.</p></div>
+<div class="sk spot"><h3>JavaScript</h3><p>Калькуляторы, формы, раскрывающиеся блоки и анимации без лишних библиотек.</p></div>
+<div class="sk spot"><h3>Заявки и уведомления</h3><p>Форма отправляет заявку на почту через FormSubmit и в Telegram через Cloudflare Worker.</p></div>
+<div class="sk spot"><h3>GitHub Pages</h3><p>Публикация сайта и хранение кода в репозитории.</p></div>
+<div class="sk spot"><h3>Интерфейс и анимации</h3><p>Типографика, цвет и спокойные эффекты, которые не мешают читать.</p></div>
+</div>
+</div></section>
+
+<section class="cta" id="contacts"><div class="wrap">
+<h2>Расскажите, какой сайт вам нужен</h2>
+<p>Напишите коротко, что нужно сделать. Отвечу и предложу, с чего начать.</p>
+<div class="row">
+<a class="btn p" href="https://github.com/sadisfactions" target="_blank" rel="noopener">Профиль на GitHub</a>
+<a class="btn off" data-k="telegram" data-on="Написать в Telegram">Telegram будет добавлен</a>
+<a class="btn off" data-k="email" data-on="Написать на почту">Почта будет добавлена</a>
+</div>
+</div></section>
+</main>
+<footer><div class="wrap"><span>© <span id="y"></span> sadisfactions</span><span>Сделано вручную на HTML, CSS и JavaScript</span></div></footer>
+
+<dialog id="lb"><img id="lbimg" alt=""></dialog>
+
+<script>
+/* ===== Контакты: впишите свои, кнопки включатся сами. Пустое значение = заглушка. =====
+   telegram — ссылка вида https://t.me/ваш_ник ; email — адрес почты. */
+var CONTACTS={telegram:'',email:''};
+/* Откуда брать скриншоты. Если положите их в папку img рядом с этим файлом, замените на 'img/' */
+var IMG_BASE='https://sadisfactions.github.io/';
+var SHOTS=[['main.png','Главная'],['catalog.png','Каталог'],['gallery.png','Галерея'],['calculator.png','Калькулятор и заявка'],['contacts.png','Контакты']];
+
+var $=function(s){return document.querySelector(s)},hover=matchMedia('(hover:hover)').matches,calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+document.documentElement.classList.add('js');
+$('#y').textContent=new Date().getFullYear();
+
+/* контакты */
+document.querySelectorAll('[data-k]').forEach(function(a){
+  var v=(CONTACTS[a.dataset.k]||'').trim();if(!v)return;
+  if(a.dataset.k==='email')a.href='mailto:'+v;else if(/^https:\/\//.test(v)){a.href=v;a.target='_blank';a.rel='noopener'}else return;
+  a.classList.remove('off');a.classList.add('p');a.textContent=a.dataset.on;
+});
+
+/* бегущая строка */
+var tech=['HTML','CSS','JavaScript','Git','GitHub Pages','FormSubmit','Cloudflare Workers','Telegram Bot','Адаптивная вёрстка'],m='';
+for(var r=0;r<4;r++)tech.forEach(function(t){m+='<span>'+t+'</span>'});$('#mq').innerHTML=m;
+
+/* полоса прокрутки */
+var bar=$('#bar');
+function prog(){var h=document.documentElement;bar.style.transform='scaleX('+(h.scrollTop/(h.scrollHeight-h.clientHeight||1))+')'}
+addEventListener('scroll',prog,{passive:true});prog();
+
+/* свет за курсором и подсветка карточек */
+var glow=$('#glow');
+if(hover&&!calm){
+  addEventListener('pointermove',function(e){glow.style.opacity=1;glow.style.transform='translate('+e.clientX+'px,'+e.clientY+'px)'},{passive:true});
+  document.addEventListener('pointerleave',function(){glow.style.opacity=0});
+  document.querySelectorAll('.spot').forEach(function(el){el.addEventListener('pointermove',function(e){var b=el.getBoundingClientRect();el.style.setProperty('--mx',e.clientX-b.left+'px');el.style.setProperty('--my',e.clientY-b.top+'px')})});
+}
+
+/* заголовок: буквы утолщаются рядом с курсором */
+var h1=$('#h1'),chars=[];
+h1.querySelectorAll('.ln>span').forEach(function(line){
+  var txt=line.textContent;line.textContent='';
+  txt.split(' ').forEach(function(word,i,arr){
+    var w=document.createElement('span');w.className='w';
+    word.split('').forEach(function(c){var s=document.createElement('span');s.className='ch';s.textContent=c;w.appendChild(s);chars.push(s)});
+    line.appendChild(w);if(i<arr.length-1)line.appendChild(document.createTextNode(' '));
+  });
+});
+if(hover&&!calm){
+  var px=-999,py=-999,busy=false;
+  function paint(){busy=false;chars.forEach(function(c){var b=c.getBoundingClientRect(),d=Math.hypot(px-(b.left+b.width/2),py-(b.top+b.height/2));c.style.fontWeight=Math.round(360+400*Math.exp(-Math.pow(d/170,2)))});}
+  h1.addEventListener('pointermove',function(e){px=e.clientX;py=e.clientY;if(!busy){busy=true;requestAnimationFrame(paint)}});
+  h1.addEventListener('pointerleave',function(){px=py=-999;paint()});
+}
+
+/* просмотр скриншотов */
+var view=$('#view'),vimg=$('#vimg'),cap=$('#cap'),cnt=$('#cnt'),th=$('#thumbs'),cur=0;
+function fit(){view.style.setProperty('--dy',Math.min(0,view.clientHeight-vimg.clientHeight)+'px')}
+vimg.addEventListener('load',function(){fit();view.classList.remove('sw')});
+addEventListener('resize',fit);
+function show(i){
+  cur=i;var s=SHOTS[i];view.classList.add('sw');
+  setTimeout(function(){vimg.src=IMG_BASE+s[0];vimg.alt='Atelier Form: '+s[1].toLowerCase()},180);
+  cap.textContent=s[1];cnt.textContent=(i+1)+' из '+SHOTS.length;
+  th.querySelectorAll('button').forEach(function(b,k){b.setAttribute('aria-pressed',k===i)});
+}
+SHOTS.forEach(function(s,i){
+  var b=document.createElement('button');b.type='button';b.setAttribute('aria-label',s[1]);b.setAttribute('aria-pressed',i===0);
+  b.innerHTML='<img src="'+IMG_BASE+s[0]+'" alt="" loading="lazy">';b.onclick=function(){show(i)};th.appendChild(b);
+});
+view.addEventListener('click',function(){var d=$('#lb');$('#lbimg').src=vimg.src;$('#lbimg').alt=vimg.alt;d.showModal();d.scrollTop=0});
+$('#lb').addEventListener('click',function(){this.close()});
+
+/* лёгкий наклон экрана за курсором */
+if(hover&&!calm){
+  view.addEventListener('pointermove',function(e){var b=view.getBoundingClientRect(),x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;view.style.transform='rotateY('+x*5+'deg) rotateX('+(-y*4)+'deg)'});
+  view.addEventListener('pointerleave',function(){view.style.transform=''});
+}
+</script>
+</body>
+</html>
