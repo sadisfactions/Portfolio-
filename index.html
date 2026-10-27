@@ -135,7 +135,7 @@ dialog img{display:block;width:100%;height:auto;cursor:zoom-out}
 <main>
 <section id="projects"><div class="wrap">
 <h2>Проекты</h2>
-<p class="sub">Пока один законченный проект. Наведите курсор на экран: страница прокрутится сама. Нажмите, чтобы открыть скриншот целиком.</p>
+<p class="sub">Два законченных проекта. Наведите курсор на экран: страница прокрутится сама. Нажмите, чтобы открыть скриншот целиком.</p>
 <article class="proj spot">
 <div>
 <span class="tag">Демонстрационный проект</span>
@@ -153,6 +153,17 @@ dialog img{display:block;width:100%;height:auto;cursor:zoom-out}
 <div class="view" id="view" title="Открыть целиком"><img id="vimg" src="https://sadisfactions.github.io/main.png" alt="Atelier Form: главная страница" width="2114" height="1222"><span class="hint">Наведите, чтобы листать</span></div>
 <div class="cap"><span id="cap">Главная</span><span id="cnt">1 из 5</span></div>
 <div class="thumbs" id="thumbs"></div>
+</div>
+</article>
+<article class="proj spot">
+<div>
+<span class="tag">Демонстрационный проект</span>
+<h3>FORMA</h3>
+<p>Сайт студии дизайна интерьеров с современным дизайном, адаптивной версткой и интерактивными элементами.</p>
+<div class="row"><a class="btn p" href="https://sadisfactions.github.io/FormaInterior/" target="_blank" rel="noopener">Посмотреть сайт</a></div>
+</div>
+<div class="stage">
+<div class="view" id="view2" title="Открыть целиком"><img id="vimg2" src="img/forma-main.jpg" alt="FORMA: главная страница и проекты" width="1440" height="3400" loading="lazy"><span class="hint">Наведите, чтобы листать</span></div>
 </div>
 </article>
 <div class="next"><b>Следующий проект</b><span>Здесь появится новая работа.</span></div>
@@ -259,6 +270,16 @@ $('#lb').addEventListener('click',function(){this.close()});
 if(hover&&!calm){
   view.addEventListener('pointermove',function(e){var b=view.getBoundingClientRect(),x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;view.style.transform='rotateY('+x*5+'deg) rotateX('+(-y*4)+'deg)'});
   view.addEventListener('pointerleave',function(){view.style.transform=''});
+}
+
+/* FORMA: просмотр скриншота (так же, как у Atelier Form) */
+var view2=$('#view2'),vimg2=$('#vimg2');
+function fit2(){view2.style.setProperty('--dy',Math.min(0,view2.clientHeight-vimg2.clientHeight)+'px')}
+vimg2.addEventListener('load',fit2);addEventListener('resize',fit2);if(vimg2.complete)fit2();
+view2.addEventListener('click',function(){var d=$('#lb');$('#lbimg').src=vimg2.src;$('#lbimg').alt=vimg2.alt;d.showModal();d.scrollTop=0});
+if(hover&&!calm){
+  view2.addEventListener('pointermove',function(e){var b=view2.getBoundingClientRect(),x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;view2.style.transform='rotateY('+x*5+'deg) rotateX('+(-y*4)+'deg)'});
+  view2.addEventListener('pointerleave',function(){view2.style.transform=''});
 }
 </script>
 </body>
