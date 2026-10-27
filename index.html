@@ -169,7 +169,9 @@ dialog img{display:block;width:100%;height:auto;cursor:zoom-out}
 <div class="row"><a class="btn p" href="https://sadisfactions.github.io/FormaInterior/" target="_blank" rel="noopener">Открыть сайт</a><a class="btn" href="https://github.com/sadisfactions/FormaInterior" target="_blank" rel="noopener">Исходный код</a></div>
 </div>
 <div class="stage">
-<div class="view" id="view2" title="Открыть целиком"><img id="vimg2" src="img/forma-main.jpg" alt="FORMA: главная страница и проекты" width="1440" height="3400" loading="lazy"><span class="hint">Наведите, чтобы листать</span></div>
+<div class="view" id="view2" title="Открыть целиком"><img id="vimg2" src="img/forma-1.jpg" alt="FORMA: главная страница" width="1440" height="960"><span class="hint">Наведите, чтобы листать</span></div>
+<div class="cap"><span id="cap2">Главная</span><span id="cnt2">1 из 5</span></div>
+<div class="thumbs" id="thumbs2"></div>
 </div>
 </article>
 <div class="next"><b>Следующий проект</b><span>Здесь появится новая работа.</span></div>
@@ -278,10 +280,22 @@ if(hover&&!calm){
   view.addEventListener('pointerleave',function(){view.style.transform=''});
 }
 
-/* FORMA: просмотр скриншота (так же, как у Atelier Form) */
-var view2=$('#view2'),vimg2=$('#vimg2');
+/* FORMA: просмотр скриншотов (так же, как у Atelier Form) */
+var SHOTS2=[['forma-1.jpg','Главная'],['forma-2.jpg','Проекты'],['forma-3.jpg','Услуги'],['forma-4.jpg','Калькулятор'],['forma-5.jpg','Заявка']];
+var view2=$('#view2'),vimg2=$('#vimg2'),cap2=$('#cap2'),cnt2=$('#cnt2'),th2=$('#thumbs2');
 function fit2(){view2.style.setProperty('--dy',Math.min(0,view2.clientHeight-vimg2.clientHeight)+'px')}
-vimg2.addEventListener('load',fit2);addEventListener('resize',fit2);if(vimg2.complete)fit2();
+vimg2.addEventListener('load',function(){fit2();view2.classList.remove('sw')});
+addEventListener('resize',fit2);if(vimg2.complete)fit2();
+function show2(i){
+  var s=SHOTS2[i];view2.classList.add('sw');
+  setTimeout(function(){vimg2.src='img/'+s[0];vimg2.alt='FORMA: '+s[1].toLowerCase()},180);
+  cap2.textContent=s[1];cnt2.textContent=(i+1)+' из '+SHOTS2.length;
+  th2.querySelectorAll('button').forEach(function(b,k){b.setAttribute('aria-pressed',k===i)});
+}
+SHOTS2.forEach(function(s,i){
+  var b=document.createElement('button');b.type='button';b.setAttribute('aria-label',s[1]);b.setAttribute('aria-pressed',i===0);
+  b.innerHTML='<img src="img/'+s[0]+'" alt="" loading="lazy">';b.onclick=function(){show2(i)};th2.appendChild(b);
+});
 view2.addEventListener('click',function(){var d=$('#lb');$('#lbimg').src=vimg2.src;$('#lbimg').alt=vimg2.alt;d.showModal();d.scrollTop=0});
 if(hover&&!calm){
   view2.addEventListener('pointermove',function(e){var b=view2.getBoundingClientRect(),x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;view2.style.transform='rotateY('+x*5+'deg) rotateX('+(-y*4)+'deg)'});
